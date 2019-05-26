@@ -1,3 +1,7 @@
+<p align="center">
+  <a href="https://travis-ci.org/sinute/phplog"><img src="https://travis-ci.org/sinute/phplog.svg" alt="Build Status"></a>
+</p>
+
 # PHPLog
 
 PHPLog likes `illuminate/log`, but can use out of lumen / laravel.

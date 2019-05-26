@@ -1,0 +1,23 @@
+dist: xenial
+language: php
+
+matrix:
+  include:
+    - name: "PHP7.1 Unit Test"
+      php: 7.1
+    - name: "PHP7.2 Unit Test"
+      php: 7.2
+    - name: "PHP7.3 Unit Test"
+      php: 7.3
+
+cache:
+  directories:
+    - $HOME/.composer/cache
+
+before_install:
+  - travis_retry composer self-update
+
+install:
+  - travis_retry composer update --prefer-dist --no-interaction --prefer-stable --no-suggest
+
+script: vendor/bin/phpunit
