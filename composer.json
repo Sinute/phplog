@@ -1,0 +1,19 @@
+{
+    "name": "sinute/phplog",
+    "description": "Monolog wrapper",
+    "license": "MIT",
+    "minimum-stability": "stable",
+    "require": {
+        "monolog/monolog": "^1.24",
+        "psr/log": "^1.0.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7.5"
+    },
+    "autoload": {
+        "psr-4": {"Sinute\\PHPLog\\": "src/PHPLog"}
+    },
+    "autoload-dev": {
+        "psr-4": {"Sinute\\PHPLog\\": "tests/PHPLog"}
+    }
+}
