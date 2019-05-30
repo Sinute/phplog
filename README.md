@@ -13,7 +13,6 @@ PHPLog likes `illuminate/log`, but can use out of lumen / laravel.
 #### Usage
 
 ```php
-<php
 $log = new LogManager('dev', [
     'default'  => 'single',
     'channels' => [
@@ -49,7 +48,6 @@ $log->info('test');
 #### Usage
 
 ```php
-<?php
 $log = new LogManager('dev', [
     'default'  => 'daily',
     'channels' => [
@@ -86,43 +84,12 @@ $log->info('test');
 
 #### Usage
 
-1. Use extend
-
 ```php
-<php
 $log = new LogManager('dev', [
     'default'  => 'custom',
     'channels' => [
         'custom' => [
-            'driver' => 'myDriver',
-            'path'   => dirname(__DIR__) . "/storage/log/app.log",
-            'level'  => 'debug'
-        ],
-    ],
-])->extend(
-    'myDriver',
-    function ($env, $config) {
-        $steamHandler = new \Monolog\Handler\StreamHandler(
-            $config['path'], $config['level'],
-            $config['bubble'] ?? true, $config['permission'] ?? null, $config['locking'] ?? false
-        );
-        $steamHandler->setFormatter(new \Monolog\Formatter\LineFormatter(null, null, true, true));
-        return new \Monolog\Logger($env, [$steamHandler]);
-    }
-);
-
-$log->info('test');
-```
-
-2. Use `via` option
-
-```php
-<?php
-$log = new LogManager('dev', [
-    'default'  => 'custom',
-    'channels' => [
-        'custom' => [
-            'driver' => 'myDriver',
+            'driver' => 'custom',
             'path'   => dirname(__DIR__) . "/storage/log/app.log",
             'level'  => 'debug',
             'via'    => function ($env, $config) {
@@ -149,4 +116,33 @@ $log->info('test');
     'level'          => 'debug', // required. Logs below than this level will be not recorded.
     'via'            => null, // optional. If not extend, this option will be required to create a custom \Monolog\Logger. (Default: null)
 ];
+```
+
+## Extend
+
+#### Usage
+
+```php
+$log = (new LogManager('dev', [
+    'default'  => 'custom',
+    'channels' => [
+        'custom' => [
+            'driver' => 'myDriver',
+            'path'   => dirname(__DIR__) . "/storage/log/app.log",
+            'level'  => 'debug'
+        ],
+    ],
+]))->extend(
+    'myDriver',
+    function ($env, $config) {
+        $steamHandler = new \Monolog\Handler\StreamHandler(
+            $config['path'], $config['level'],
+            $config['bubble'] ?? true, $config['permission'] ?? null, $config['locking'] ?? false
+        );
+        $steamHandler->setFormatter(new \Monolog\Formatter\LineFormatter(null, null, true, true));
+        return new \Monolog\Logger($env, [$steamHandler]);
+    }
+);
+
+$log->info('test');
 ```
